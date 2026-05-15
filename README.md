@@ -50,10 +50,11 @@ A premium Flutter mobile companion app that connects to your PC while playing Gr
    - Haptic feedback and animations
 
 2. **Desktop Companion** (Windows)
+   - Modern GUI application with system tray support
    - Python WebSocket server
-   - Keyboard input simulation
-   - System tray application
-   - Connection monitoring
+   - Keyboard input simulation with auto-focus
+   - Real-time connection monitoring
+   - One-click start/stop server
 
 3. **Communication Protocol**
    - WebSocket (ws://[PC_IP]:8080)
@@ -78,13 +79,23 @@ A premium Flutter mobile companion app that connects to your PC while playing Gr
 
 #### 1. Desktop Server Setup
 
+**Option A: Pre-built Executable (Recommended for Users)**
+
+1. Download `GTADeck.exe` from the [releases page](https://github.com/xmi1an/gtadeck/releases)
+2. Double-click to run the application
+3. Click **"Start Server"** in the GUI window
+4. Note your PC's IP address displayed in the app
+5. If Windows Firewall prompts, click **"Allow access"**
+
+**Option B: Run from Source (For Developers)**
+
 ```bash
 cd desktop_companion
 pip install -r requirements.txt
-python server.py
+python gui_app.py
 ```
 
-The server will display your PC's IP address. Keep this running while playing GTA V.
+The GUI will display your PC's IP address. Keep this running while playing GTA V.
 
 #### 2. Mobile App Setup
 
@@ -121,7 +132,9 @@ gtadeck/
 │   ├── screens/             # UI screens
 │   └── widgets/             # Reusable widgets
 ├── desktop_companion/
-│   ├── server.py           # WebSocket server
+│   ├── gui_app.py          # GUI application (main)
+│   ├── server.py           # WebSocket server (legacy CLI)
+│   ├── build_exe.py        # Executable builder
 │   ├── requirements.txt    # Python dependencies
 │   └── README.md           # Server documentation
 └── android/                # Android configuration
@@ -163,8 +176,11 @@ gtadeck/
 
 **Desktop:**
 - Python 3.8+
+- tkinter (GUI interface)
 - websockets (WebSocket server)
 - pynput (keyboard simulation)
+- pywin32 (Windows integration)
+- pystray (system tray support)
 
 ### Running in Development
 
